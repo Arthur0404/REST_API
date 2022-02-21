@@ -1,5 +1,5 @@
 import pytest
-import  requests
+
 
 def pytest_addoption(parser):
     parser.addoption(
@@ -7,7 +7,28 @@ def pytest_addoption(parser):
         default="https://ya.ru",
         help="Request ya.ru"
     )
+    parser.addoption(
+        "--status_code",
+        default=200,
+
+    )
+    parser.addoption(
+        "--error_status_code",
+        default=404,
+
+    )
+
 
 @pytest.fixture()
 def base_url(request):
     return request.config.getoption("--url")
+
+
+@pytest.fixture()
+def status_code(request):
+    return request.config.getoption("--status_code")
+
+
+@pytest.fixture()
+def error_status_code(request):
+    return request.config.getoption("--error_status_code")
